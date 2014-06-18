@@ -2,7 +2,8 @@
 
 import os, sys
 
-venv = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), '.virtualenvs', 'base', 'bin', 'activate_this.py')
+venv = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.venv', 'bin', 'activate_this.py')
+os.environ['PATH'] = "/home/user/base/.venv/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
 execfile(venv, dict(__file__=venv))
 
 _PROJECT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'base')
