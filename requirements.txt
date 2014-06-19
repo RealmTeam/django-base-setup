@@ -1,6 +1,8 @@
 django==1.6.5 #python web framework
 django-annoying==0.7.9 #tools missing in django
-django-pipeline==1.3.20 #compressor for js and css
+-e git+https://github.com/PhilipGarnero/django-pipeline.git#egg=pipeline #compressor for js and css
+cython==0.20.2 #required dependency for libsass
+-e git+https://github.com/PhilipGarnero/python-scss.git#egg=sass #sass library for django-pipeline-compass
 -e git+https://github.com/PhilipGarnero/django-pipeline-compass.git#egg=django-pipeline-compass #sass compiler for pipeline
 slimit==0.8.1 #js compressor for pipeline
 cssmin==0.2.0 #css compressor for pipeline
@@ -11,7 +13,7 @@ django-crispy-forms==1.4.0 #better look for forms
 crispy-forms-foundation==0.2.4.1 #foundation support for crispy forms
 python-memcached==1.53 #memory cache
 djangorestframework==2.3.12 #serialization utility
-MySQL-python==1.2.5 #mysqlDB
+MySQL-python==1.2.5 #mysqlDB requirements : mysql-server & libmysqlclient-dev
 #django-celery==3.1.9 #django celery
 #django-celery-with-redis==3.0 #django api for broker
 #redis==2.9.1 #celery broker
