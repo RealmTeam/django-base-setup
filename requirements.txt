@@ -12,7 +12,8 @@ django-dajaxice-ng==0.5.6 #complement of dajax
 django-crispy-forms==1.4.0 #better look for forms
 crispy-forms-foundation==0.3.4.1 #foundation support for crispy forms
 python-memcached==1.53 #memory cache
-djangorestframework==2.3.12 #serialization utility
+djangorestframework==2.4.3 #easy to use api framework
+django-rest-swagger==0.1.14 #docs for the api framework
 MySQL-python==1.2.5 #mysqlDB requirements : mysql-server & libmysqlclient-dev
 #django-celery==3.1.9 #django celery
 #django-celery-with-redis==3.0 #django api for broker
