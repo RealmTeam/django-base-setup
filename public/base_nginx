@@ -16,7 +16,12 @@ server {
        }
 
        location /media {
-           alias /home/user/base/base/uimedia;
+           alias /home/user/base/base/uimedia/public;
+       }
+
+       location /protected {
+           internal;
+           root /home/user/base/base/uimedia/protected;
        }
 
        location / {

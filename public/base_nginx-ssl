@@ -17,7 +17,12 @@ server {
        }
 
        location /media {
-           alias /home/user/base/base/uimedia;
+           alias /home/user/base/base/uimedia/public;
+       }
+
+       location /protected {
+           internal;
+           root /home/user/base/base/uimedia/protected;
        }
 
        location / {
@@ -25,6 +30,6 @@ server {
            proxy_set_header X-Real-IP $remote_addr;
            proxy_set_header Host $host;
            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	       proxy_set_header X-Forwarded-Protocol ssl;
+           proxy_set_header X-Forwarded-Protocol ssl;
        }
 }
