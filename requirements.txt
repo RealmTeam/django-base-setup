@@ -15,12 +15,9 @@ python-memcached==1.53 #memory cache
 djangorestframework==2.4.3 #easy to use api framework
 django-rest-swagger==0.2.1 #docs for the api framework
 MySQL-python==1.2.5 #mysqlDB requirements : mysql-server & libmysqlclient-dev
-#django-celery==3.1.9 #django celery
-#django-celery-with-redis==3.0 #django api for broker
-#redis==2.9.1 #celery broker
+#celery[redis]==3.1.17 #side tasks
 #django-grappelli==2.6.3 #better look and customization for admin
 #django-guardian==1.2.4 #better permission handling
 gunicorn==18.0 #production server for mod_wsgi
-flup==1.0.2 #production server for FastCGI
+#flup==1.0.2 #production server for FastCGI
 django-debug-toolbar==1.2.1 #debug toolbar for django
-
