@@ -21,3 +21,4 @@ MySQL-python==1.2.5 #mysqlDB requirements : mysql-server & libmysqlclient-dev
 gunicorn==18.0 #production server for mod_wsgi
 #flup==1.0.2 #production server for FastCGI
 django-debug-toolbar==1.2.1 #debug toolbar for django
+django-celery
