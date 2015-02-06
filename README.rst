@@ -37,8 +37,8 @@ If you don't have virtualenv or pip :
 ::
 
     sudo apt-get install python-setuptools
-    easy_install pip
-    pip install virtualenv
+    sudo easy_install pip
+    sudo pip install virtualenv
 
 If you want to use celery :
 ::
@@ -88,6 +88,7 @@ Installing the server :
     sudo ln -s /etc/nginx/sites-available/base-ssl.conf /etc/nginx/sites-enabled/base-ssl
     openssl req -new -newkey rsa:2048 -nodes -keyout base.key -out base.csr
     openssl x509 -req -days 365 -in base.csr -signkey base.key -out base.crt
+    sudo mkdir /etc/nginx/ssl
     sudo mv base.key base.crt base.csr /etc/nginx/ssl/
     sudo service nginx restart
 
@@ -96,13 +97,22 @@ Installing the virtualenv :
 
 ::
 
-    pip install virtualenvwrapper
+    sudo pip install virtualenvwrapper
     mkdir ~/.virtualenvs ~/.pip_packages
     echo -e "export WORKON_HOME=$HOME/.virtualenvs\nexport PIP_DOWNLOAD_CACHE=$HOME/.pip_packages\nexport PROJECT_HOME=$HOME/\nsource /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
     source ~/.bashrc
     mkvirtualenv base
     workon base
-    pip install -r ../requirements.txt
+    pip install -r requirements.txt
+
+
+If you don't have virtualenv or pip :
+::
+
+    sudo apt-get install python-setuptools
+    sudo easy_install pip
+    sudo pip install virtualenv
+
 
 Setting upstart script :
 ========================
