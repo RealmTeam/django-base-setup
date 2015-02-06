@@ -82,7 +82,8 @@ Installing the server :
 ::
 
     sudo apt-get install nginx
-    sudo cp public/base_nginx public/base_nginx-ssl /etc/nginx/sites-available/base.conf
+    sudo cp public/base_nginx /etc/nginx/sites-available/base.conf
+    sudo cp public/base_nginx-ssl /etc/nginx/sites-available/base-ssl.conf
     sudo ln -s /etc/nginx/sites-available/base.conf /etc/nginx/sites-enabled/base
     sudo ln -s /etc/nginx/sites-available/base-ssl.conf /etc/nginx/sites-enabled/base-ssl
     openssl req -new -newkey rsa:2048 -nodes -keyout base.key -out base.csr
@@ -95,7 +96,8 @@ Installing the virtualenv :
 
 ::
 
-    pip install virtualenvwrapper mkdir ~/.virtualenvs ~/.pip_packages
+    pip install virtualenvwrapper
+    mkdir ~/.virtualenvs ~/.pip_packages
     echo -e "export WORKON_HOME=$HOME/.virtualenvs\nexport PIP_DOWNLOAD_CACHE=$HOME/.pip_packages\nexport PROJECT_HOME=$HOME/\nsource /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
     source ~/.bashrc
     mkvirtualenv base
