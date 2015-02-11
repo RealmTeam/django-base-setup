@@ -73,7 +73,7 @@ Before anything else :
 
     sudo apt-get install libmysqlclient-dev python-dev python-mysqldb
 
-In the following commands, replace base by the name you want for your site.
+In the following commands, replace `BASE` by the name you want for your site.
 Open all files you're asked to `cp` to change the name of the site as well.
 
 Installing the server :
@@ -82,14 +82,14 @@ Installing the server :
 ::
 
     sudo apt-get install nginx
-    sudo cp public/base_nginx /etc/nginx/sites-available/base.conf
-    sudo cp public/base_nginx-ssl /etc/nginx/sites-available/base-ssl.conf
-    sudo ln -s /etc/nginx/sites-available/base.conf /etc/nginx/sites-enabled/base
-    sudo ln -s /etc/nginx/sites-available/base-ssl.conf /etc/nginx/sites-enabled/base-ssl
-    openssl req -new -newkey rsa:2048 -nodes -keyout base.key -out base.csr
-    openssl x509 -req -days 365 -in base.csr -signkey base.key -out base.crt
+    sudo cp public/base_nginx /etc/nginx/sites-available/BASE.conf
+    sudo cp public/base_nginx-ssl /etc/nginx/sites-available/BASE-ssl.conf
+    sudo ln -s /etc/nginx/sites-available/BASE.conf /etc/nginx/sites-enabled/BASE
+    sudo ln -s /etc/nginx/sites-available/BASE-ssl.conf /etc/nginx/sites-enabled/BASE-ssl
+    openssl req -new -newkey rsa:2048 -nodes -keyout BASE.key -out BASE.csr
+    openssl x509 -req -days 365 -in BASE.csr -signkey BASE.key -out BASE.crt
     sudo mkdir /etc/nginx/ssl
-    sudo mv base.key base.crt base.csr /etc/nginx/ssl/
+    sudo mv BASE.key BASE.crt BASE.csr /etc/nginx/ssl/
     sudo service nginx restart
 
 Installing the virtualenv :
@@ -101,8 +101,8 @@ Installing the virtualenv :
     mkdir ~/.virtualenvs ~/.pip_packages
     echo -e "export WORKON_HOME=$HOME/.virtualenvs\nexport PIP_DOWNLOAD_CACHE=$HOME/.pip_packages\nexport PROJECT_HOME=$HOME/\nsource /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
     source ~/.bashrc
-    mkvirtualenv base
-    workon base
+    mkvirtualenv BASE
+    workon BASE
     pip install -r requirements.txt
 
 
@@ -119,10 +119,10 @@ Setting upstart script :
 
 ::
 
-    sudo cp public/base.conf /etc/init/
-    sudo ln -fs /lib/init/upstart-job /etc/init.d/base
-    sudo update-rc.d base defaults
-    sudo service base start
+    sudo cp public/base.conf /etc/init/BASE.conf
+    sudo ln -fs /lib/init/upstart-job /etc/init.d/BASE
+    sudo update-rc.d BASE defaults
+    sudo service BASE start
 
 Installing celery :
 ===================
