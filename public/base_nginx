@@ -1,27 +1,27 @@
 server {
-    server_name  base.com;
-    return       301 http://www.base.com$request_uri;
+    server_name  YOUR_DOMAIN;
+    return       301 http://www.YOUR_DOMAIN$request_uri;
 }
 
 server {
-       server_name www.base.com;
+       server_name www.YOUR_DOMAIN;
 
-       access_log /var/log/nginx/base.access.log;
-       error_log /var/log/nginx/base.error.log;
+       access_log /var/log/nginx/BASE.access.log;
+       error_log /var/log/nginx/BASE.error.log;
 
-       root /home/user/base;
+       root /home/USER/BASE;
 
        location /static {
-           alias /home/user/base/public/static;
+           alias /home/USER/BASE/public/static;
        }
 
        location /media {
-           alias /home/user/base/base/uimedia/public;
+           alias /home/USER/BASE/base/uimedia/public;
        }
 
        location /protected {
            internal;
-           root /home/user/base/base/uimedia/protected;
+           root /home/USER/BASE/base/uimedia/protected;
        }
 
        location / {
