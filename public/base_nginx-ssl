@@ -1,28 +1,28 @@
 server {
-       server_name www.base.com;
+       server_name www.YOUR_DOMAIN;
 
-       access_log /var/log/nginx/base.access.log;
-       error_log /var/log/nginx/base.error.log;
+       access_log /var/log/nginx/BASE.access.log;
+       error_log /var/log/nginx/BASE.error.log;
 
-       root /home/user/base;
+       root /home/USER/BASE;
 
        listen 443;
        ssl on;
-       ssl_certificate /etc/nginx/ssl/base.crt;
-       ssl_certificate_key /etc/nginx/ssl/base.key;
+       ssl_certificate /etc/nginx/ssl/BASE.crt;
+       ssl_certificate_key /etc/nginx/ssl/BASE.key;
        ssl_prefer_server_ciphers       on;
 
        location /static {
-           alias /home/user/base/public/static;
+           alias /home/USER/BASE/public/static;
        }
 
        location /media {
-           alias /home/user/base/base/uimedia/public;
+           alias /home/USER/BASE/base/uimedia/public;
        }
 
        location /protected {
            internal;
-           root /home/user/base/base/uimedia/protected;
+           root /home/USER/BASE/base/uimedia/protected;
        }
 
        location / {
