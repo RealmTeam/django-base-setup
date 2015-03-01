@@ -9,7 +9,7 @@ django-dajax-ng==0.9.4 #use js code in python functions, use python functions in
 django-dajaxice-ng==0.5.6 #complement of dajax
 -e git+https://github.com/simonz05/django-tabs.git#egg=django-tabs #easy to use tabs
 django-crispy-forms==1.4.0 #better look for forms
-crispy-forms-foundation==0.4 #foundation support for crispy forms
+crispy-forms-foundation==0.4.1 #foundation support for crispy forms
 python-memcached==1.53 #memory cache
 djangorestframework==3.0.2 #easy to use api framework
 django-rest-swagger==0.2.6 #docs for the api framework
