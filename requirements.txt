@@ -1,7 +1,6 @@
 django==1.7 #python web framework
 django-annoying==0.7.9 #tools missing in django
 -e git+https://github.com/PhilipGarnero/django-pipeline.git#egg=pipeline #compressor for js and css
--e git+https://github.com/PhilipGarnero/python-scss.git#egg=sass #sass library for django-pipeline-compass
 -e git+https://github.com/PhilipGarnero/django-pipeline-compass.git#egg=django-pipeline-compass #sass compiler for pipeline
 slimit==0.8.1 #js compressor for pipeline
 cssmin==0.2.0 #css compressor for pipeline
