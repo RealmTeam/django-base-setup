@@ -15,7 +15,7 @@ djangorestframework==3.1.1 #easy to use api framework
 django-rest-framework-social-oauth2==0.0.4 #easy oauth2 and social auth support for rest_framework
 MySQL-python==1.2.5 #mysqlDB requirements : mysql-server & libmysqlclient-dev
 celery[redis]==3.1.17 #side tasks
-django-grappelli==2.6.5 #better look and customization for admin
+django-grappelli==2.6.4 #better look and customization for admin
 #django-guardian==1.2.5 #better permission handling
 gunicorn==19.3.0 #production server for mod_wsgi
 #flup==1.0.3 #production server for FastCGI
