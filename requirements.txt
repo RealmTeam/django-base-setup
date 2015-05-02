@@ -1,6 +1,7 @@
 django==1.7.7 #python web framework
 django-annoying==0.8.1 #tools missing in django
 -e git+https://github.com/PhilipGarnero/django-pipeline.git#egg=pipeline #compressor for js and css
+-e git+https://github.com/PhilipGarnero/python-scss.git@develop#egg=sass #sass compiler
 -e git+https://github.com/PhilipGarnero/django-pipeline-compass.git#egg=django-pipeline-compass #sass compiler for pipeline
 slimit==0.8.1 #js compressor for pipeline
 cssmin==0.2.0 #css compressor for pipeline
@@ -10,13 +11,17 @@ django-dajaxice==0.7 #complement of dajax
 django-crispy-forms==1.4.0 #better look for forms
 crispy-forms-foundation==0.4.1 #foundation support for crispy forms
 python-memcached==1.54 #memory cache
-djangorestframework==3.1.0 #easy to use api framework
-django-rest-framework-social-oauth2==0.0.1 #easy oauth2 and social auth support for rest_framework
-django-rest-swagger==0.2.9 #docs for the api framework
+djangorestframework==3.1.1 #easy to use api framework
+django-rest-framework-social-oauth2==0.0.4 #easy oauth2 and social auth support for rest_framework
 MySQL-python==1.2.5 #mysqlDB requirements : mysql-server & libmysqlclient-dev
 celery[redis]==3.1.17 #side tasks
-#django-grappelli==2.6.3 #better look and customization for admin
+django-grappelli==2.6.5 #better look and customization for admin
 #django-guardian==1.2.5 #better permission handling
 gunicorn==19.3.0 #production server for mod_wsgi
 #flup==1.0.3 #production server for FastCGI
 django-debug-toolbar==1.3.0 #debug toolbar for django
+pillow==2.7.0 #image manipulation library (for ImageField)
+-e git+https://github.com/PhilipGarnero/django-templated-email#egg=templated-email #send templated emails
+django-multiselectfield==0.1.3 #comma separated choice field
+braintree==3.13.0 # payment solutions
+django-boto==0.3.9 # amazon s3 storage
