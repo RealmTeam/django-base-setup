@@ -2,4 +2,5 @@ public/static/
 base/.venv
 .venv
 .sass-cache
+.cache
 *.pyc
