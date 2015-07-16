@@ -136,3 +136,52 @@ Installing celery :
     sudo cp public/celery_worker.conf /etc/supervisor/conf.d/{{base}}_celery_worker.conf
     sudo supervisorctl reread
     sudo supervisorctl update
+
+-------------------------------------------------------------------------------------------------------
+
+************
+Using docker
+************
+
+Installing docker :
+===================
+
+::
+
+    sudo sh -c "wget -qO- https://get.docker.io/gpg | apt-key add -"
+    sudo sh -c "echo deb http://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
+    sudo aptitude update
+    sudo aptitude install lxc-docker
+    sudo gpasswd -a ${USER} docker
+    sudo service docker restart
+    newgrp docker
+
+Building our app :
+==================
+
+::
+
+    docker build -t {{base}}-image .
+
+Running dependencies :
+======================
+
+::
+
+    docker run --name {{base}}-nginx -v public/nginx_docker:/etc/nginx/sites-enabled/{{base}}.conf:ro -d nginx
+    docker run --name {{base}}-db -e MYSQL_ROOT_PASSWORD=rootpassword -e MYSQL_DATABASE=db_name -e MYSQL_USER=user -e MYSQL_PASSWORD=password -d mysql
+
+
+Running our container :
+=======================
+
+::
+
+    docker run --name {{base}} --link {{base}}-db:mysql -p {{port}}:8000 -d {{base}}-image
+
+Get shell access to the container :
+===================================
+
+::
+
+    docker exec -it {{base}} bash

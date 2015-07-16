@@ -13,10 +13,8 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir -p /app && mkdir -p /app/public
 WORKDIR /app
 COPY requirements.txt manage.py /app/
-COPY base /app/base
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python manage.py createcachetable && python manage.py migrate
-RUN python manage.py compress && python manage.py collectstatic --noinput
+COPY base /app/base
 
 EXPOSE 8000
 
