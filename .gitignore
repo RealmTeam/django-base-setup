@@ -4,3 +4,5 @@ base/.venv
 .sass-cache
 .cache
 *.pyc
+debug.log
+mydatabase
