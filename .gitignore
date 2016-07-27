@@ -1,8 +1,9 @@
 public/static/
-base/.venv
 .venv
 .sass-cache
 .cache
 *.pyc
 debug.log
 mydatabase
+front/build/
+node_modules/

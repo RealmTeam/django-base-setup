@@ -12,19 +12,6 @@ server {
        ssl_certificate_key /etc/nginx/ssl/{{base}}.key;
        ssl_prefer_server_ciphers       on;
 
-       location /static {
-           alias /home/{{user}}/{{base}}/public/static;
-       }
-
-       location /media {
-           alias /home/{{user}}/{{base}}/base/uimedia/public;
-       }
-
-       location /protected {
-           internal;
-           root /home/{{user}}/{{base}}/base/uimedia/protected;
-       }
-
        location / {
            proxy_pass http://127.0.0.1:{{port}};
            proxy_set_header X-Real-IP $remote_addr;
