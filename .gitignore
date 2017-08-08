@@ -1,7 +1,10 @@
-public/static/
+database/
 .venv
+.idea
+.DS_Store
 .sass-cache
 .cache
+.DS_Store
 *.pyc
 debug.log
 mydatabase

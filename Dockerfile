@@ -10,11 +10,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get purge -y --auto-remove
 
-RUN mkdir -p /app && mkdir -p /app/public
+RUN mkdir -p /app && mkdir -p /app/logs
 WORKDIR /app
 COPY requirements.txt manage.py /app/
 RUN pip install --no-cache-dir -r requirements.txt
-COPY base /app/base
+COPY main /app/main
 
 EXPOSE 8000
 

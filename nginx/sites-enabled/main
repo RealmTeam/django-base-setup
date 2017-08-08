@@ -1,0 +1,70 @@
+server {
+    server_name {{staticdomainname}};
+    listen 80;
+    charset utf-8;
+    index index.html;
+    error_page 404 =200 /index.html;
+
+    location / {
+        alias /www;
+    }
+}
+
+server {
+    server_name {{staticdomainname}};
+    listen 443;
+    charset utf-8;
+    index index.html;
+    error_page 404 =200 /index.html;
+
+    ssl on;
+    ssl_certificate /etc/nginx/ssl/{{name}}.crt;
+    ssl_certificate_key /etc/nginx/ssl/{{name}}.key;
+    ssl_prefer_server_ciphers on;
+
+    location / {
+        alias /www;
+    }
+}
+
+server {
+    server_name {{domainname}} localhost;
+    listen 80;
+    charset utf-8;
+    client_max_body_size 300M;
+
+    location /static {
+        alias /www;
+    }
+
+    location / {
+        proxy_pass http://api:8000;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+server {
+    server_name {{domainname}} localhost;
+    listen 443;
+    charset utf-8;
+    client_max_body_size 300M;
+
+    ssl on;
+    ssl_certificate /etc/nginx/ssl/{{name}}.crt;
+    ssl_certificate_key /etc/nginx/ssl/{{name}}.key;
+    ssl_prefer_server_ciphers on;
+
+    location /static {
+        alias /www;
+    }
+
+    location / {
+        proxy_pass http://api:8000;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Protocol ssl;
+    }
+}

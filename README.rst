@@ -1,6 +1,6 @@
-=================
-Django base setup
-=================
+==========================
+Django + React boilerplate
+==========================
 
 
 This is the basic setup for a new django project.
@@ -15,6 +15,9 @@ Where to start ?
 
 Installing the development environment :
 ========================================
+
+Server :
+--------
 
 Before anything else :
 ::
@@ -45,6 +48,20 @@ If you want to use celery :
 
     sudo apt-get install redis-server
 
+Front :
+-------
+
+Before anything else :
+::
+
+    sudo apt-get install nodejs npm
+    sudo npm install -g yarn
+
+Installing front dependencies :
+::
+
+    cd front && yarn install && cd ..
+
 
 Running the server :
 ====================
@@ -57,8 +74,15 @@ Running celery :
 ================
 ::
 
-    celery --app=base.celery:app worker --loglevel=INFO
+    source .venv/bin/activate
+    celery --app=main.celery:app worker --loglevel=INFO -B
 
+Running the front :
+===================
+::
+
+    source .venv/bin/activate
+    python manage.py runfront
 
 -------------------------------------------------------------------------------------------------------
 
@@ -69,79 +93,18 @@ Setting up the production environment
 Before anything else :
 ======================
 
-::
-
-    sudo apt-get install libmysqlclient-dev python-dev python-mysqldb
-
-In the following commands, replace `{{base}}` by the name you want for your site.
-Open all files you're asked to `cp` to change the name of the site as well.
+In the following commands, replace `{{name}}` by the name you want for your site.
 
 You can also run `python manage.py configuredeployment` which will configure  
 all the files for you and change these commands accordingly.
 
-Installing the server :
-=======================
+Generating certificate for https :
+==================================
 
 ::
 
-    sudo apt-get install nginx
-    sudo cp public/base_nginx /etc/nginx/sites-available/{{base}}.conf
-    sudo cp public/base_nginx-ssl /etc/nginx/sites-available/{{base}}-ssl.conf
-    sudo ln -s /etc/nginx/sites-available/{{base}}.conf /etc/nginx/sites-enabled/{{base}}
-    sudo ln -s /etc/nginx/sites-available/{{base}}-ssl.conf /etc/nginx/sites-enabled/{{base}}-ssl
-    openssl req -new -newkey rsa:2048 -nodes -keyout {{base}}.key -out {{base}}.csr
-    openssl x509 -req -days 365 -in {{base}}.csr -signkey {{base}}.key -out {{base}}.crt
-    sudo mkdir /etc/nginx/ssl
-    sudo mv {{base}}.key {{base}}.crt {{base}}.csr /etc/nginx/ssl/
-    sudo service nginx restart
-
-Installing the virtualenv :
-===========================
-
-::
-
-    sudo pip install virtualenvwrapper
-    mkdir ~/.virtualenvs ~/.pip_packages
-    echo -e "export WORKON_HOME=$HOME/.virtualenvs\nexport PIP_DOWNLOAD_CACHE=$HOME/.pip_packages\nexport PROJECT_HOME=$HOME/\nsource /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
-    source ~/.bashrc
-    mkvirtualenv {{base}}
-    workon {{base}}
-    pip install -r requirements.txt
-
-
-If you don't have virtualenv or pip :
-::
-
-    sudo apt-get install python-setuptools
-    sudo easy_install pip
-    sudo pip install virtualenv
-
-
-Setting upstart script :
-========================
-
-::
-
-    sudo cp public/base.conf /etc/init/{{base}}.conf
-    sudo ln -fs /lib/init/upstart-job /etc/init.d/{{base}}
-    sudo update-rc.d {{base}} defaults
-    sudo service {{base}} start
-
-Installing celery :
-===================
-
-::
-
-    sudo apt-get install redis-server supervisor
-    sudo cp public/celery_worker.conf /etc/supervisor/conf.d/{{base}}_celery_worker.conf
-    sudo supervisorctl reread
-    sudo supervisorctl update
-
--------------------------------------------------------------------------------------------------------
-
-************
-Using docker
-************
+    openssl req -new -newkey rsa:2048 -nodes -keyout nginx/ssl/{{name}}.key -out nginx/ssl/{{name}}.csr
+    openssl x509 -req -days 365 -in nginx/ssl/{{name}}.csr -signkey nginx/ssl/{{name}}.key -out nginx/ssl/{{name}}.crt
 
 Installing docker :
 ===================
@@ -156,32 +119,55 @@ Installing docker :
     sudo service docker restart
     newgrp docker
 
-Building our app :
-==================
+Creating and running our stack :
+================================
 
 ::
 
-    docker build -t {{base}}-image .
+    docker-compose up -d
+    # Alternatively, you can use the DEBUG environment variable to launch in prod or in dev
+    DEBUG=True docker-compose up -d
 
-Running dependencies :
-======================
-
-::
-
-    docker run --name {{base}}-nginx -v public/nginx_docker:/etc/nginx/sites-enabled/{{base}}.conf:ro -d nginx
-    docker run --name {{base}}-db -e MYSQL_ROOT_PASSWORD=rootpassword -e MYSQL_DATABASE=db_name -e MYSQL_USER=user -e MYSQL_PASSWORD=password -d mysql
-
-
-Running our container :
-=======================
+Checking if the stack is running :
+==================================
 
 ::
 
-    docker run --name {{base}} --link {{base}}-db:mysql -p {{port}}:8000 -d {{base}}-image
+    docker-compose ps
 
-Get shell access to the container :
+Get shell access to a container :
+=================================
+
+::
+
+    docker-compose exec api bash
+
+Display the logs from the stack :
+=================================
+
+::
+
+    docker-compose logs -f
+
+Stopping and Destroying the stack :
 ===================================
 
 ::
 
-    docker exec -it {{base}} bash
+    docker-compose down
+
+Stopping the stack :
+====================
+
+::
+
+    docker-compose stop
+
+Starting the stack :
+====================
+
+::
+
+    docker-compose start
+
+

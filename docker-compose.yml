@@ -1,0 +1,97 @@
+version: '3'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:latest
+    env_file: .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/mysql:/var/lib/mysql
+
+  # Automated MySQL backup every hour
+  backup:
+    image: nickbreen/mysql-backup-cron:v1.0.5
+    env_file: .env
+    environment:
+      MYSQL_ENV_MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      CRON_D_BACKUP: |
+            0 * * * * root   /backup.sh | logger
+    links:
+      - db:mysql
+    depends_on:
+      - db
+
+  # Fast cache for Django
+  memcached:
+    image: memcached
+    expose:
+      - "11211"
+    command: memcached -m 1g
+
+  # Django server
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: start
+    expose:
+      - "8000"
+    links:
+      - db
+      - redis
+      - memcached
+    depends_on:
+      - db
+      - redis
+      - memcached
+    env_file: .env
+    environment:
+      - DOCKER=true
+      - DEBUG=${DEBUG:-False}
+    restart: always
+
+  # Celery worker
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery
+    links:
+      - db
+      - redis
+      - memcached
+    depends_on:
+      - db
+      - redis
+      - memcached
+    env_file: .env
+    environment:
+      - DOCKER=true
+      - DEBUG=${DEBUG:-False}
+    restart: always
+
+  # Static server
+  nginx:
+    build:
+      context: ./nginx/
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./public:/www
+    links:
+      - api
+    restart: always
+
+  # Persistent cache for celery
+  redis:
+    image: redis:latest
+    hostname: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./database/redis:/data
+    restart: always
+
