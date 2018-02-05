@@ -1,11 +1,11 @@
-from python:2.7-slim
+FROM python:3.6-slim
 
 RUN apt-get update && apt-get install -y \
                    libmysqlclient-dev \
                    libpq-dev \
                    sqlite3 \
                    build-essential \
-		   git \
+		           git \
             --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get purge -y --auto-remove
